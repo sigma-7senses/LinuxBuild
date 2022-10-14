@@ -43,6 +43,7 @@ public static partial class BuildExecutor
             {"ios", BuildTarget.iOS},
             {"webgl", BuildTarget.WebGL},
             {"linux", BuildTarget.StandaloneLinux64},
+            {"windows", BuildTarget.StandaloneWindows64},
         };
 
     // -target android
@@ -63,11 +64,22 @@ public static partial class BuildExecutor
 
     #region EditorMenu
 
+    [MenuItem("Tools/Build/Windows")]
+    private static void BuildWindows()
+    {
+        var dic = new Dictionary<string, string>();
+        dic[OptionTarget] = "windows";
+        dic[OptionOutput] = $"./windows/{System.DateTime.Now:yyMMddHHmm}.exe";
+
+        BuildInternal(dic);
+    }
+
     [MenuItem("Tools/Build/Android")]
     private static void BuildAndroid()
     {
         var dic = new Dictionary<string, string>();
         dic[OptionTarget] = "android";
+        dic[OptionOutput] = $"./android/{System.DateTime.Now:yyMMddHHmm}.apk";
 
         BuildInternal(dic);
     }
@@ -77,6 +89,7 @@ public static partial class BuildExecutor
     {
         var dic = new Dictionary<string, string>();
         dic[OptionTarget] = "ios";
+        dic[OptionOutput] = "ios";
 
         BuildInternal(dic);
     }
@@ -86,6 +99,7 @@ public static partial class BuildExecutor
     {
         var dic = new Dictionary<string, string>();
         dic[OptionTarget] = "webgl";
+        dic[OptionOutput] = "webgl";
 
         BuildInternal(dic);
     }
@@ -95,6 +109,7 @@ public static partial class BuildExecutor
     {
         var dic = new Dictionary<string, string>();
         dic[OptionTarget] = "linux";
+        dic[OptionOutput] = "linux";
 
         BuildInternal(dic);
     }
